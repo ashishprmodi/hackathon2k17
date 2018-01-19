@@ -1,0 +1,19 @@
+[
+  {
+    "username": "Mr Ballu",
+    "bloodGrp": "B+",
+    "contactNumber": "917387460106",
+    "emergencyContact1": "918007530200",
+    "emergencyContact2": "917387460102",
+    "emergencyContact3": "917387460112",
+    "vehicleType": "2W",
+    "insuranceNo": "102128129128121028",
+    "alarmTaskId": 1,
+    "taskType": "Hospital",
+    "acknowledged": false,
+    "status": "URGENT",
+    "feedback": null,
+    "alarmCreatedDate": 1497360755769,
+    "GeoLocation": "18.5685774 73.774300 "
+  }
+  ]

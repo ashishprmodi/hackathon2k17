@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">SOS Crash Response Team</string>
+    <string name="title_activity_main">SOS Crash Helper</string>
+
+    <string name="title_activity_registration">Registration</string>
+    <string name="dummy_button">Submit</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_main2">SOS Crash Response Team</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Register</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="hello">Hello</string>
+    <!-- Strings related to registration -->
+    <string name="prompt_name">Response Team Name</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_contact1">Emergency Contact Number</string>
+
+    <string name="prompt_contact2">Second Contact Number</string>
+    <string name="prompt_contact3">Third Contact Number</string>
+    <string name="prompt_bloodGroup">Blood Group</string>
+    <string name="prompt_insurance">Insurance Number</string>
+
+    <string name="action_sign_in">Register</string>
+    <string name="action_sign_in_short">Sign in</string>
+
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_field_required">This field is required</string>
+    
+    <string name="acknowledge_link">Click alert Icon to Acknowledge</string>
+    <string name="tasks_title">  Tasks</string>
+</resources>

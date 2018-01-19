@@ -1,0 +1,65 @@
+.header{	
+	background-image:url("../image/logo.JPG");
+	background-repeat: no-repeat ;
+    margin-top: 20px;
+	margin-left: 30px;
+	height:64px;
+
+}
+
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+#map {
+height: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+height: 100%;
+margin: 0;
+padding: 0;
+}
+#floating-panel {
+position: absolute;
+text-align: center;
+font-family: 'Roboto','sans-serif';
+line-height: 30px;
+padding-left: 10px;
+}
+#floating-panel {
+background-color: transparent;
+padding: 5px;
+position: absolute;
+top: 118px;
+z-index: 5;
+margin-left: 293px;
+}
+
+#heat_chart{
+	width: 900px;height: 400px; float:left;border-style:groove
+}
+#high_chart1{ width: 900px;height: 400px;margin-left: 2px;float:left;border-style:groove
+}
+#high_chart2{width: 900px;height: 400px;margin-top: 1px;float:left;border-style:groove
+}
+#high_chart3{width: 900px;height: 400px;margin-top: 1px;margin-left: 2px;float:left;border-style:groove
+}
+
+.table-class{
+	display:inline-table; text-align:center
+}
+#live_rep{
+	margin-top: 20px;
+    width: 150px;
+    margin-left: 1345px;
+	cursor:pointer
+}
+
+.mainContainer{
+	margin-top: 10px;margin-left: 30px; 
+}
+
+#logo{
+	margin-top: 20px;
+    margin-left: 30px;
+	cursor:pointer
+}

@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title></title>
+
+    <link rel="stylesheet" type="text/css" href="../lib/css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/css/ui.jqgrid.css" />
+
+    <link rel="stylesheet" type="text/css" href="../lib/css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/css/ui.jqgrid.css" />
+
+
+    <style type="text/css">
+        html, body { font-size: 75%; }
+        .ui-inline-custom.ui-state-hover span { margin: -1px; }
+    </style>
+    <script type="text/javascript" src="../lib/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/js/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../lib/js/grid.locale-en.js"></script>
+    <script type="text/javascript">
+        $.jgrid.no_legacy_api = true;
+        $.jgrid.useJSON = true;
+    </script>
+    <script type="text/javascript" src="../lib/js/jquery.jqGrid.src.js"></script>
+</head>
+
+<style>
+.zoom {
+    zoom: 1.5;
+}
+
+</style>
+
+<body>
+
+<!--<div id="sosheader" class="">
+	<img id="logo" src="../lib/image/logo.JPG" />
+	<img id="live_rep" src="../lib/image/live.jpg" />
+</div> -->
+
+    <script type="text/javascript">
+    //<![CDATA[
+    $(function () {
+            var lastSel,
+            grid = $("#List1"),
+            getColumnIndexByName = function (grid, columnName) {
+                var cm = grid.jqGrid('getGridParam', 'colModel'), i, l = cm.length;
+                for (i = 0; i < l; i++) {
+                    if (cm[i].name === columnName) {
+                        return i; // return the index
+                    }
+                }
+                return -1;
+            },
+            myDelOptions = {
+                // because I use "local" data I don't want to send the changes to the server
+                // so I use "processing:true" setting and delete the row manually in onclickSubmit
+                onclickSubmit: function (rp_ge, rowid) {
+                    // reset the value of processing option to true to
+                    // skip the ajax request to 'clientArray'.
+                    rp_ge.processing = true;
+
+                    // we can use onclickSubmit function as "onclick" on "Delete" button
+                    // delete row
+                    grid.jqGrid('delRowData', rowid);
+                    $("#delmod" + grid[0].id).hide();
+
+                    if (grid[0].p.lastpage > 1) {
+                        // reload grid to make the row from the next page visable.
+                        // TODO: deleting the last row from the last page which number is higher as 1
+                        grid.trigger("reloadGrid", [{ page: grid[0].p.page}]);
+                    }
+
+                    return true;
+                },
+                processing: true
+            };
+
+       
+
+        grid.jqGrid({
+            //  url: '/SOSCrashAlert/lib/js/dummydata.json',
+             datatype: "local",
+            //  mtype: 'GET',
+            //  data: mydata,
+             colNames: ['', 'alarmTaskId','taskType' ,'acknowledged','status','GeoLocation',
+                       'username','bloodGrp','contactNumber','emergencyContact1','emergencyContact2',
+                       'emergencyContact3','vehicleType',
+                       'insuranceNo','feedback','alarmCreatedDate','act'],
+            colModel: [
+               
+                { name: 'id', index: 'id', width: 70, align: 'center', sorttype: 'int', searchoptions: { sopt: ['eq', 'ne'] }, hidden: true },
+                { name: 'alarmTaskId', index: 'alarmTaskId', editable: true, width: 100, editrules: { required: true} },
+                { name: 'taskType', index: 'taskType', editable: true, width: 100, editrules: { required: true} },
+                { name: 'acknowledged', index: 'acknowledged', editable: true, width: 100, editrules: { required: true} },
+                { name: 'status', index: 'status', editable: true, width: 100, editrules: { required: true} },
+                { name: 'GeoLocation', index: 'GeoLocation', editable: true, width: 100, editrules: { required: true} },
+                { name: 'username', index: 'username', width: 70, editable: false },
+                { name: 'bloodGrp', index: 'bloodGrp', editable: false, width: 100, editrules: { required: true} },
+                { name: 'contactNumber', index: 'contactNumber', editable: false, width: 100, editrules: { required: true} },
+                { name: 'emergencyContact1', index: 'emergencyContact1', editable: true, width: 100, editrules: { required: true} },
+                { name: 'emergencyContact2', index: 'emergencyContact2', editable: true, width: 100, editrules: { required: true} },
+                { name: 'emergencyContact3', index: 'emergencyContact3', editable: true, width: 100, editrules: { required: true} },
+                { name: 'vehicleType', index: 'vehicleType', editable: true, width: 100, editrules: { required: true} },
+                { name: 'insuranceNo', index: 'insuranceNo', editable: true, width: 100, editrules: { required: true} },               
+                { name: 'feedback', index: 'feedback', editable: true, width: 100, editrules: { required: true} },
+                { name: 'alarmCreatedDate', index: 'alarmCreatedDate', editable: true, width: 100, editrules: { required: true} },
+                { name: 'act', index: 'act', width: ($.browser.webkit ? 80 : 75), align: 'center', sortable: false, formatter: 'actions',
+                    formatoptions: {
+                        keys: true, // we want use [Enter] key to save the row and [Esc] to cancel editing.
+                        delOptions: myDelOptions
+                    }
+                }
+              
+            ],
+            rowNum: 15,
+            rowList: [5, 10, 20],
+            pager: '#Pager1',
+            gridview: true,
+            rownumbers: true,
+            ignoreCase: true,
+            sortname: 'invdate',
+            viewrecords: true,
+            sortorder: "desc",
+            caption: "Live view of Accedents in your area",
+            height: "100%",
+            width:"100%",
+            editurl: 'clientArray',
+            ondblClickRow: function (id) {
+                // edit the row and save it on press "enter" key
+                 var geoLocation =  $('#List1').jqGrid('getCell',id,'GeoLocation');
+                 var partsOfStr = geoLocation.split(' ');
+                 window.open("./accidentmapview.html?"+"lat="+partsOfStr[0]+"&long="+partsOfStr[1],"Accident site",'height=800,width=850');
+                //  if (confirm("View On Map")){
+                //      console.log("User selected map view");
+                                
+                //      window.open("/SOSCrashAlert/soscrashalert/accidentmapview.html?"+"lat="+partsOfStr[0]+"&long="+partsOfStr[1],"Accident site",'height=800,width=850');
+                //  }else{
+                //     //  $(this).jqGrid('editRow', id, true, null, null, 'clientArray');
+                //  }
+            },
+            onSelectRow: function (id) {
+                if (id && id !== lastSel) {
+                    // cancel editing of the previous selected row if it was in editing state.
+                    // jqGrid hold intern savedRow array inside of jqGrid object,
+                    // so it is safe to call restoreRow method with any id parameter
+                    // if jqGrid not in editing state
+                    if (typeof lastSel !== "undefined") {
+                        $(this).jqGrid('restoreRow', lastSel);
+                    }
+                    lastSel = id;
+                }
+            },
+          
+            loadComplete: function () {
+                var iCol = getColumnIndexByName(grid, 'act');
+                $(this).find(">tbody>tr.jqgrow>td:nth-child(" + (iCol + 1) + ")")
+                    .each(function() {
+                        $("<div>", {
+                            title: "Custom",
+                            mouseover: function() {
+                                $(this).addClass('ui-state-hover');
+                            },
+                            mouseout: function() {
+                                $(this).removeClass('ui-state-hover');
+                            },
+                            click: function(e) {
+                                // alert("'Acknowledge Accedent "+  $(e.target).closest("tr.jqgrow").attr("id") +" !");
+                                if (confirm("'Acknowledge Accident "+  $(e.target).closest("tr.jqgrow").attr("id") +" !")) {
+                                        // console.log("before page reload");
+                                        window.location.reload();
+                                    } else {
+
+                                        // Do nothing!
+                                    }
+                            }
+                        }
+                      ).css({"margin-right": "5px", float: "left", cursor: "pointer"})
+                       .addClass("ui-pg-div ui-inline-custom")
+                       .append('<span class="ui-icon ui-icon-document"></span>')
+                       .prependTo($(this).children("div"));
+                });
+            }
+        }).jqGrid('navGrid', '#Pager1', { add: true, edit: false }, {}, {},
+                  myDelOptions, { multipleSearch: true, overlay: false });
+    });
+
+     $.ajax({
+
+        type: "GET",
+        // url: "/SOSCrashAlert/lib/js/dummydata.json",
+        url: proxyUrlLiveRepo+"alarmData",
+        // data: dropdown,
+        async: true,
+        cache: false,
+        success: function (gridArrayData) {         
+            // grid.setGridParam({ url: "/SOSCrashAlert/lib/js/dummydata.json"})               
+            // grid.trigger('reloadGrid');
+            $("#List1").jqGrid('setGridParam', { data: gridArrayData});
+            $("#List1").trigger('reloadGrid');
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
+    });
+
+    //]]>
+    </script>
+    <div class="zoom">
+		<table id="List1"><tr><td></td></tr></table>
+		<div id="Pager1"></div>
+    </div>
+</body>
+</html>
